@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColinChang.OpenSource.MongoHelper", "ColinChang.OpenSource.MongoHelper\ColinChang.OpenSource.MongoHelper.csproj", "{28DAC6F6-E179-4113-876B-0FB7EA32F163}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColinChang.OpenSource.MongoHelper.Test", "ColinChang.OpenSource.MongoHelper.Test\ColinChang.OpenSource.MongoHelper.Test.csproj", "{DE83E2D6-3BD0-4DDD-BF86-7A6DB333F7C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28DAC6F6-E179-4113-876B-0FB7EA32F163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28DAC6F6-E179-4113-876B-0FB7EA32F163}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28DAC6F6-E179-4113-876B-0FB7EA32F163}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28DAC6F6-E179-4113-876B-0FB7EA32F163}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE83E2D6-3BD0-4DDD-BF86-7A6DB333F7C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE83E2D6-3BD0-4DDD-BF86-7A6DB333F7C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE83E2D6-3BD0-4DDD-BF86-7A6DB333F7C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE83E2D6-3BD0-4DDD-BF86-7A6DB333F7C4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
