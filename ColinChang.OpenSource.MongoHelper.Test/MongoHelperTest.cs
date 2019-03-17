@@ -110,6 +110,24 @@ namespace ColinChang.OpenSource.MongoHelper.Test
                     foreach (var person in cursor.Current)
                         _testOutputHelper.WriteLine(person.ToString());
         }
+        
+        [Fact]
+        public async Task CreateIndexTest()
+        {
+            //创建复合索引
+            await _mongo.CreateOneIndex("Test", new Dictionary<string, SortDirection>
+            {
+                ["ClassId"] = SortDirection.Ascending,
+                ["CameraId"] = SortDirection.Ascending
+            });
+
+            //创建多个单索引
+            await _mongo.CreateManyIndex(_collection, new Dictionary<string, SortDirection>
+            {
+                ["FaceId"] = SortDirection.Ascending,
+                ["UserName"] = SortDirection.Ascending
+            });
+        }
     }
 
     public class MongoFixture : IDisposable
