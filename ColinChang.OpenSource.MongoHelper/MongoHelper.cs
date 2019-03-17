@@ -28,6 +28,8 @@ namespace ColinChang.OpenSource.MongoHelper
             _database = _client.GetDatabase(database);
         }
 
+        #region CRUD
+
         public async Task InsertAsync<T>(string collection, params T[] documents)
         {
             if (string.IsNullOrWhiteSpace(collection) || documents == null || !documents.Any())
@@ -74,19 +76,6 @@ namespace ColinChang.OpenSource.MongoHelper
                 : Builders<T>.Filter.Where(where);
 
             await _database.GetCollection<T>(collection).DeleteManyAsync(filter);
-        }
-
-        public async Task DropCollection(string collection)
-        {
-            if (string.IsNullOrWhiteSpace(collection))
-                return;
-
-            await _database.DropCollectionAsync(collection);
-        }
-
-        public async Task DropDatabase(string database)
-        {
-            await _client.DropDatabaseAsync(database);
         }
 
         public async Task<long> QueryCountAsync<T>(string collection, Expression<Func<T, bool>> where = null)
@@ -143,7 +132,7 @@ namespace ColinChang.OpenSource.MongoHelper
                 var sort = Builders<T>.Sort.Combine();
                 foreach (var sc in sortConditions)
                 {
-                    sort = sc.SortType == SortType.Ascending
+                    sort = sc.SortDirection == SortDirection.Ascending
                         ? sort.Ascending(sc.Property)
                         : sort.Descending(sc.Property);
                 }
@@ -153,6 +142,78 @@ namespace ColinChang.OpenSource.MongoHelper
 
             return (filter, opt);
         }
+
+        #endregion
+
+        #region DML
+
+        public async Task<bool> IfCollectionExists(string collection)
+        {
+            using (var cursor = await _database.ListCollectionNamesAsync())
+            {
+                var collections = await cursor.ToListAsync();
+                return collection.Contains(collection);
+            }
+        }
+
+        public async Task DropCollection(string collection)
+        {
+            if (string.IsNullOrWhiteSpace(collection))
+                return;
+
+            await _database.DropCollectionAsync(collection);
+        }
+
+        public async Task DropDatabase(string database)
+        {
+            await _client.DropDatabaseAsync(database);
+        }
+
+        /// <summary>
+        /// 创建单个索引，如果多个条件则创建一个复合索引
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <param name="indexs"></param>
+        /// <returns></returns>
+        public async Task CreateOneIndex(string collection, Dictionary<string, SortDirection> indexs)
+        {
+            var keys = Builders<BsonDocument>.IndexKeys.Combine();
+
+            foreach (var col in indexs.Keys)
+            {
+                keys = indexs[col] == SortDirection.Ascending
+                    ? keys.Ascending(col)
+                    : keys.Descending(col);
+            }
+
+            var indexModel = new CreateIndexModel<BsonDocument>(keys);
+            await _database.GetCollection<BsonDocument>(collection).Indexes.CreateOneAsync(indexModel);
+        }
+
+        /// <summary>
+        /// 创建多个索引，如果多个条件则创建多个普通索引
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <param name="indexs"></param>
+        /// <returns></returns>
+        public async Task CreateManyIndex(string collection, Dictionary<string, SortDirection> indexs)
+        {
+            var indexModels = new List<CreateIndexModel<BsonDocument>>();
+
+            foreach (var col in indexs.Keys)
+            {
+                var keys = Builders<BsonDocument>.IndexKeys.Combine();
+                keys = indexs[col] == SortDirection.Ascending
+                    ? keys.Ascending(col)
+                    : keys.Descending(col);
+
+                indexModels.Add(new CreateIndexModel<BsonDocument>(keys));
+            }
+
+            await _database.GetCollection<BsonDocument>(collection).Indexes.CreateManyAsync(indexModels);
+        }
+
+        #endregion
     }
 
 
@@ -171,18 +232,18 @@ namespace ColinChang.OpenSource.MongoHelper
     public class SortCondition<T> where T : class
     {
         public Expression<Func<T, object>> Property { get; set; }
-        public SortType SortType { get; set; }
+        public SortDirection SortDirection { get; set; }
 
-        public SortCondition(Expression<Func<T, object>> property, SortType sortType = SortType.Ascending)
+        public SortCondition(Expression<Func<T, object>> property, SortDirection sortType = SortDirection.Ascending)
         {
             Property = property;
-            SortType = sortType;
+            SortDirection = sortType;
         }
     }
 
-    public enum SortType
+    public enum SortDirection
     {
-        Ascending,
-        Descending
+        Ascending = 1,
+        Descending = -1
     }
 }
