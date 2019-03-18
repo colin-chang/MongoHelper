@@ -96,7 +96,7 @@ namespace ColinChang.OpenSource.MongoHelper
             if (string.IsNullOrWhiteSpace(collection))
                 return null;
 
-            var (filter, options) = BuildCondition(collection, where, skip, limit, sortConditions);
+            var (filter, options) = BuildCondition(where, skip, limit, sortConditions);
             using (var cursor = await _database.GetCollection<T>(collection).FindAsync(filter, options))
                 return await cursor.ToListAsync();
         }
@@ -108,11 +108,11 @@ namespace ColinChang.OpenSource.MongoHelper
             if (string.IsNullOrWhiteSpace(collection))
                 return null;
 
-            var (filter, options) = BuildCondition(collection, where, skip, limit, sortConditions);
+            var (filter, options) = BuildCondition(where, skip, limit, sortConditions);
             return await _database.GetCollection<T>(collection).FindAsync(filter, options);
         }
 
-        private (FilterDefinition<T> filter, FindOptions<T, T> options) BuildCondition<T>(string collection,
+        private (FilterDefinition<T> filter, FindOptions<T, T> options) BuildCondition<T>(
             Expression<Func<T, bool>> where,
             int skip, int limit, IEnumerable<SortCondition<T>> sortConditions) where T : class
         {
