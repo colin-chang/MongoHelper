@@ -147,15 +147,6 @@ namespace ColinChang.OpenSource.MongoHelper
 
         #region DML
 
-        public async Task<bool> IfCollectionExists(string collection)
-        {
-            using (var cursor = await _database.ListCollectionNamesAsync())
-            {
-                var collections = await cursor.ToListAsync();
-                return collection.Contains(collection);
-            }
-        }
-
         public async Task DropCollection(string collection)
         {
             if (string.IsNullOrWhiteSpace(collection))
