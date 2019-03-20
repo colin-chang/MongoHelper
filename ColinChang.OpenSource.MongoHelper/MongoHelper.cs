@@ -8,7 +8,7 @@ using MongoDB.Driver;
 
 namespace ColinChang.OpenSource.MongoHelper
 {
-        public class MongoHelper
+    public class MongoHelper
     {
         private readonly MongoClient _client;
         private IMongoDatabase _database;
