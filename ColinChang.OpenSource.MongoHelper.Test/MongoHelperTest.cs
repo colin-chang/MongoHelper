@@ -22,7 +22,7 @@ namespace ColinChang.OpenSource.MongoHelper.Test
         }
 
         [Fact]
-        public async Task QueryCountTest()
+        public async Task QueryCountTestAsync()
         {
             var total = await _mongo.QueryCountAsync<Person>(_collection);
             Assert.True(total > 0);
@@ -45,9 +45,9 @@ namespace ColinChang.OpenSource.MongoHelper.Test
         public async Task DeleteTestAsync()
         {
             var deleting = await _mongo.QueryCountAsync<Person>(_collection);
-            await _mongo.Delete<Person>(_collection, p => p.Name == "Colin");
+            await _mongo.DeleteAsync<Person>(_collection, p => p.Name == "Colin");
             var deleted = await _mongo.QueryCountAsync<Person>(_collection);
-            Assert.True(deleted <= deleting);
+            Assert.True(deleted < deleting);
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace ColinChang.OpenSource.MongoHelper.Test
                 new UpdateCondition<Person, object>(p => p.Name, "Tomas"),
                 new UpdateCondition<Person, object>(p => p.Age, 40)
             };
-            await _mongo.Update(_collection, updates, p => p.Name == "Tom");
+            await _mongo.UpdateAsync(_collection, updates, p => p.Name == "Tom");
 
 
             var tom = await _mongo.QueryCountAsync<Person>(_collection, p => p.Name == "Tom");
@@ -90,7 +90,7 @@ namespace ColinChang.OpenSource.MongoHelper.Test
             var scs = new List<SortCondition<Person>>
             {
                 new SortCondition<Person>(p => p.Age),
-                new SortCondition<Person>(p => p.Name, SortType.Descending)
+                new SortCondition<Person>(p => p.Name, SortDirection.Descending)
             };
             var persons = await _mongo.QueryAsync<Person>("persons", sortConditions: scs);
 
@@ -110,19 +110,19 @@ namespace ColinChang.OpenSource.MongoHelper.Test
                     foreach (var person in cursor.Current)
                         _testOutputHelper.WriteLine(person.ToString());
         }
-        
+
         [Fact]
         public async Task CreateIndexTest()
         {
             //创建复合索引
-            await _mongo.CreateOneIndex("Test", new Dictionary<string, SortDirection>
+            await _mongo.CreateOneIndexAsync("persons", new Dictionary<string, SortDirection>
             {
                 ["ClassId"] = SortDirection.Ascending,
                 ["CameraId"] = SortDirection.Ascending
             });
 
             //创建多个单索引
-            await _mongo.CreateManyIndex(_collection, new Dictionary<string, SortDirection>
+            await _mongo.CreateManyIndexAsync(_collection, new Dictionary<string, SortDirection>
             {
                 ["FaceId"] = SortDirection.Ascending,
                 ["UserName"] = SortDirection.Ascending
@@ -158,7 +158,7 @@ namespace ColinChang.OpenSource.MongoHelper.Test
         public async void Dispose()
         {
             //await Mongo.DropCollection(Collection);
-            await Mongo.DropDatabase(DbName);
+            await Mongo.DropDatabaseAsync(DbName);
         }
     }
 
