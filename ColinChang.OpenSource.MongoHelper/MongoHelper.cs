@@ -8,7 +8,7 @@ using MongoDB.Driver;
 
 namespace ColinChang.OpenSource.MongoHelper
 {
-    public class MongoHelper
+        public class MongoHelper
     {
         private readonly MongoClient _client;
         private IMongoDatabase _database;
@@ -48,7 +48,7 @@ namespace ColinChang.OpenSource.MongoHelper
                 .InsertManyAsync(jsons.Select(BsonDocument.Parse));
         }
 
-        public async Task Update<TDocument, TField>(string collection,
+        public async Task UpdateAsync<TDocument, TField>(string collection,
             IEnumerable<UpdateCondition<TDocument, TField>> updateConditions,
             Expression<Func<TDocument, bool>> where = null) where TDocument : class
         {
@@ -66,7 +66,7 @@ namespace ColinChang.OpenSource.MongoHelper
             await _database.GetCollection<TDocument>(collection).UpdateManyAsync(filter, update);
         }
 
-        public async Task Delete<T>(string collection, Expression<Func<T, bool>> where = null)
+        public async Task DeleteAsync<T>(string collection, Expression<Func<T, bool>> where = null)
         {
             if (string.IsNullOrWhiteSpace(collection))
                 return;
@@ -112,7 +112,7 @@ namespace ColinChang.OpenSource.MongoHelper
             return await _database.GetCollection<T>(collection).FindAsync(filter, options);
         }
 
-        private (FilterDefinition<T> filter, FindOptions<T, T> options) BuildCondition<T>(
+        private static (FilterDefinition<T> filter, FindOptions<T, T> options) BuildCondition<T>(
             Expression<Func<T, bool>> where,
             int skip, int limit, IEnumerable<SortCondition<T>> sortConditions) where T : class
         {
@@ -147,7 +147,30 @@ namespace ColinChang.OpenSource.MongoHelper
 
         #region DML
 
-        public async Task DropCollection(string collection)
+        public async Task<IEnumerable<string>> GetIndexKeysAsync(string collection)
+        {
+            using (var cursor = await _database.GetCollection<BsonDocument>(collection).Indexes.ListAsync())
+            {
+                var indexes = await cursor.ToListAsync();
+
+                var keys = indexes.Select(index =>
+                {
+                    var iks = (index
+                                .Elements
+                                .FirstOrDefault(e => e.Name == "key")
+                                .Value
+                            as BsonDocument)
+                        ?.Names
+                        .ToList();
+                    iks?.Sort();
+                    return iks == null ? null : string.Join(",", iks);
+                });
+
+                return keys;
+            }
+        }
+
+        public async Task DropCollectionAsync(string collection)
         {
             if (string.IsNullOrWhiteSpace(collection))
                 return;
@@ -155,7 +178,7 @@ namespace ColinChang.OpenSource.MongoHelper
             await _database.DropCollectionAsync(collection);
         }
 
-        public async Task DropDatabase(string database)
+        public async Task DropDatabaseAsync(string database)
         {
             await _client.DropDatabaseAsync(database);
         }
@@ -166,7 +189,7 @@ namespace ColinChang.OpenSource.MongoHelper
         /// <param name="collection"></param>
         /// <param name="indexs"></param>
         /// <returns></returns>
-        public async Task CreateOneIndex(string collection, Dictionary<string, SortDirection> indexs)
+        public async Task CreateOneIndexAsync(string collection, Dictionary<string, SortDirection> indexs)
         {
             var keys = Builders<BsonDocument>.IndexKeys.Combine();
 
@@ -187,7 +210,7 @@ namespace ColinChang.OpenSource.MongoHelper
         /// <param name="collection"></param>
         /// <param name="indexs"></param>
         /// <returns></returns>
-        public async Task CreateManyIndex(string collection, Dictionary<string, SortDirection> indexs)
+        public async Task CreateManyIndexAsync(string collection, Dictionary<string, SortDirection> indexs)
         {
             var indexModels = new List<CreateIndexModel<BsonDocument>>();
 
