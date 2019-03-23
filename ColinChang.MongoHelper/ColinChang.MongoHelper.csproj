@@ -2,6 +2,13 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <Authors>Colin Chang</Authors>
+        <Description>A common MongoDB helper based on MongoDB.Driver.</Description>
+        <Copyright>https://colin-chang.site/</Copyright>
+        <PackageLicenseUrl>https://raw.githubusercontent.com/colin-chang/MongoHelper/master/LICENSE</PackageLicenseUrl>
+        <PackageProjectUrl>https://github.com/colin-chang/MongoHelper</PackageProjectUrl>
+        <RepositoryType>Git</RepositoryType>
+        <PackageTags>mongo mongodb mongodbhelper mongodb.driver</PackageTags>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="MongoDB.Driver" Version="2.8.0" />
