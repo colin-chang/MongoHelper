@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColinChang.OpenSource.MongoHelper", "ColinChang.OpenSource.MongoHelper\ColinChang.OpenSource.MongoHelper.csproj", "{28DAC6F6-E179-4113-876B-0FB7EA32F163}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColinChang.MongoHelper", "ColinChang.MongoHelper\ColinChang.MongoHelper.csproj", "{28DAC6F6-E179-4113-876B-0FB7EA32F163}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColinChang.OpenSource.MongoHelper.Test", "ColinChang.OpenSource.MongoHelper.Test\ColinChang.OpenSource.MongoHelper.Test.csproj", "{DE83E2D6-3BD0-4DDD-BF86-7A6DB333F7C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColinChang.MongoHelper.Test", "ColinChang.MongoHelper.Test\ColinChang.MongoHelper.Test.csproj", "{DE83E2D6-3BD0-4DDD-BF86-7A6DB333F7C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

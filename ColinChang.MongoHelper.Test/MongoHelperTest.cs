@@ -6,7 +6,7 @@ using MongoDB.Bson;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace ColinChang.OpenSource.MongoHelper.Test
+namespace ColinChang.MongoHelper.Test
 {
     public class MongoHelperTest : IClassFixture<MongoFixture>
     {

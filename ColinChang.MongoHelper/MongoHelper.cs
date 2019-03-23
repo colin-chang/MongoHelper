@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace ColinChang.OpenSource.MongoHelper
+namespace ColinChang.MongoHelper
 {
     public class MongoHelper
     {
