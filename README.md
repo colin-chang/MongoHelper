@@ -4,11 +4,6 @@
 
 使用方式参见 单元测试。
 
-详细说明文档参见 https://colin-chang.site/distribution/pages/mongo.html
-
-* 基于 `.Net Standard 2.0`
-* 依赖于 `MongoDB.Driver 2.8.0`
-
 **[Nuget](https://www.nuget.org/packages/ColinChang.MongoHelper/)**
 ```sh
 # Package Manager
@@ -17,3 +12,5 @@ Install-Package ColinChang.MongoHelper
 # .NET CLI
 dotnet add package ColinChang.MongoHelper
 ```
+
+详细说明文档参见 https://colin-chang.site/distribution/pages/mongo.html
