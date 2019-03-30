@@ -1,8 +1,8 @@
 # MongoHelper
 
-仿照关系型数据库SqlHeler的MongoDB版本，支持简单CRUD操作，包含分页、排序、大数量查询等常用功能。
+A MongoDB operation utility based on `MongoDB.Driver` like the SqlHelper for relation database.It provides the usual CRUD methods.Query for ordered paged and big data are also supported.Index management also included.
 
-使用方式参见 单元测试。
+Details of how to use it,please check the [unit test project](https://github.com/colin-chang/MongoHelper/tree/master/ColinChang.MongoHelper.Test).
 
 **[Nuget](https://www.nuget.org/packages/ColinChang.MongoHelper/)**
 ```sh
@@ -13,4 +13,5 @@ Install-Package ColinChang.MongoHelper
 dotnet add package ColinChang.MongoHelper
 ```
 
-详细说明文档参见 https://colin-chang.site/distribution/pages/mongo.html
+> Here is the how is works:
+https://colin-chang.site/distribution/pages/mongo.html
