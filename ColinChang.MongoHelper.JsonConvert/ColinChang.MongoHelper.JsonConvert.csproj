@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Authors>Colin Chang</Authors>
+        <Description>This is a Json convert utility that can serialize and deserialize objects with "ObjectId"(defined in MongoDB.Driver) type properties.</Description>
+        <Copyright>https://colin-chang.site/</Copyright>
+        <PackageProjectUrl>https://github.com/colin-chang/MongoHelper/tree/master/ColinChang.MongoHelper.JsonConvert</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/colin-chang/MongoHelper/tree/master/ColinChang.MongoHelper.JsonConvert</RepositoryUrl>
+        <RepositoryType>Git</RepositoryType>
+        <Version>1.0.0</Version>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <FileVersion>1.0.0.0</FileVersion>
+        <PackageTags>Mongo MongoDB MongodbHelper MongoJsonConvert BsonConvert BsonConverter ObjectId ObjectIdConverter</PackageTags>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <Title>MongoJsonConvert</Title>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MongoDB.Bson" Version="2.8.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\LICENSE">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+        </None>
+    </ItemGroup>
+
+</Project>

@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColinChang.MongoHelper", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColinChang.MongoHelper.Test", "ColinChang.MongoHelper.Test\ColinChang.MongoHelper.Test.csproj", "{DE83E2D6-3BD0-4DDD-BF86-7A6DB333F7C4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColinChang.MongoHelper.JsonConvert", "ColinChang.MongoHelper.JsonConvert\ColinChang.MongoHelper.JsonConvert.csproj", "{7A7355D3-F235-4FDA-ABEA-70375AE13A67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{DE83E2D6-3BD0-4DDD-BF86-7A6DB333F7C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE83E2D6-3BD0-4DDD-BF86-7A6DB333F7C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE83E2D6-3BD0-4DDD-BF86-7A6DB333F7C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A7355D3-F235-4FDA-ABEA-70375AE13A67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A7355D3-F235-4FDA-ABEA-70375AE13A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A7355D3-F235-4FDA-ABEA-70375AE13A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A7355D3-F235-4FDA-ABEA-70375AE13A67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
