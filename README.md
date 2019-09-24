@@ -40,4 +40,4 @@ dotnet add package ColinChang.MongoHelper
 ```
 
 > Here is the how is works:
-https://colin-chang.site/architecture/nosql/mongo.html
+https://architecture.colinchang.net/nosql/mongo.html
